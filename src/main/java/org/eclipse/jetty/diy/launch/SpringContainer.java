@@ -1,10 +1,10 @@
 package org.eclipse.jetty.diy.launch;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.diy.utility.LaunchUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import static org.apache.log4j.Logger.getLogger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -15,7 +15,7 @@ import static org.apache.log4j.Logger.getLogger;
  */
 public class SpringContainer implements Container {
 
-    private static final Logger logger = getLogger(SpringContainer.class);
+    private static final Logger logger = LoggerFactory.getLogger(SpringContainer.class);
 
     public static final String SPRING_CONFIG = "spring.config";
 

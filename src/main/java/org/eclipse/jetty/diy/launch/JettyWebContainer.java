@@ -1,14 +1,14 @@
 package org.eclipse.jetty.diy.launch;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.annotations.AnnotationConfiguration;
 import org.eclipse.jetty.diy.utility.LaunchUtil;
 import org.eclipse.jetty.plus.webapp.EnvConfiguration;
 import org.eclipse.jetty.plus.webapp.PlusConfiguration;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import static org.apache.log4j.Logger.getLogger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -19,7 +19,7 @@ import static org.apache.log4j.Logger.getLogger;
  */
 public class JettyWebContainer implements Container {
 
-    private static final Logger logger = getLogger(JettyWebContainer.class);
+    private static final Logger logger = LoggerFactory.getLogger(JettyWebContainer.class);
 
     public static final String JETTY_PORT = "jetty.port";
     public static final int DEFAULT_JETTY_PORT = 8080;

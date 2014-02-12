@@ -1,15 +1,12 @@
 package org.eclipse.jetty.diy.utility;
 
-import org.apache.log4j.Logger;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
 import java.util.Properties;
 
-import static org.apache.log4j.Logger.getLogger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,10 +17,12 @@ import static org.apache.log4j.Logger.getLogger;
  */
 public class LaunchUtil {
 
-    private static final Logger logger = getLogger(LaunchUtil.class);
+    private static final Logger logger = LoggerFactory.getLogger(LaunchUtil.class);
 
     private static final String CONFIG_PROPERTIES = "launch.properties";
     private static volatile Properties PROPERTIES;
+
+    public static Class LAUNCH_CLASS;
 
 
     public static String getProperty(String key) {
@@ -63,7 +62,7 @@ public class LaunchUtil {
         }
 
 
-        List<URL> list = new ArrayList<URL>();
+       /* List<URL> list = new ArrayList<URL>();
         try {
             Enumeration<URL> urls = Thread.currentThread().getContextClassLoader().getResources(fileName);
             list = new ArrayList<URL>();
@@ -85,11 +84,14 @@ public class LaunchUtil {
                     fileName, list.size(), list.toString());
             logger.warn(errMsg);
             // throw new IllegalStateException(errMsg); // see http://code.alibabatech.com/jira/browse/DUBBO-133
-        }
+        }*/
 
         // fall back to use method getResourceAsStream
         try {
-            properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName));
+            if (LAUNCH_CLASS != null)
+                properties.load(LAUNCH_CLASS.getResourceAsStream(LAUNCH_CLASS.getSimpleName() + ".properties"));
+            else
+                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName));
         } catch (Throwable e) {
             logger.warn("Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(), e);
         }

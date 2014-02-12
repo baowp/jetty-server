@@ -1,15 +1,15 @@
 package org.eclipse.jetty.diy.launch;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.diy.utility.LaunchUtil;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.nio.SelectChannelConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.web.servlet.DispatcherServlet;
 
-import static org.apache.log4j.Logger.getLogger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -20,7 +20,7 @@ import static org.apache.log4j.Logger.getLogger;
  */
 public class JettyContainer implements Container {
 
-    private static final Logger logger = getLogger(JettyContainer.class);
+    private static final Logger logger = LoggerFactory.getLogger(JettyContainer.class);
 
     public static final String JETTY_PORT = "jetty.port";
     public static final int DEFAULT_JETTY_PORT = 8080;

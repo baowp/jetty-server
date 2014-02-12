@@ -1,7 +1,8 @@
 package org.eclipse.jetty.diy.launch;
 
-import org.apache.log4j.Logger;
 import org.eclipse.jetty.diy.utility.LaunchUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -9,7 +10,6 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
-import static org.apache.log4j.Logger.getLogger;
 
 /**
  * Created with IntelliJ IDEA.
@@ -23,7 +23,7 @@ public class Main {
 
     public static final String SHUTDOWN_HOOK_KEY = "dubbo.shutdown.hook";
 
-    private static final Logger logger = getLogger(Main.class);
+    private static final Logger logger = LoggerFactory.getLogger(Main.class);
 
     //private static final ExtensionLoader<Container> loader = ExtensionLoader.getExtensionLoader(Container.class);
 
@@ -42,7 +42,7 @@ public class Main {
                 containers.add(new SpringContainer());
             if (argList.contains("jetty"))
                 containers.add(new JettyContainer());
-            else if(argList.contains("jettyWeb"))
+            else if (argList.contains("jettyWeb"))
                 containers.add(new JettyWebContainer());
            /* for (int i = 0; i < args.length; i ++) {
                 containers.add(loader.getExtension(args[i]));
