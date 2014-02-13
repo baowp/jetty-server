@@ -21,11 +21,13 @@
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
       <version>${spring.version}</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.0.13</version>
+      <scope>provided</scope>
     </dependency>
     <dependency>
         <groupId>org.eclipse.jetty</groupId>
