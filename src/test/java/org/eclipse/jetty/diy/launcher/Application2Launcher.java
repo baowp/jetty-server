@@ -12,7 +12,6 @@ import org.eclipse.jetty.diy.utility.LaunchUtil;
 public class Application2Launcher {
 
     public static void main(String args[]) {
-        LaunchUtil.LAUNCH_CLASS = Application2Launcher.class;
         Main.main(args);
     }
 }

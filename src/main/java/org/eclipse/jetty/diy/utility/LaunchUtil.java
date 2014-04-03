@@ -5,6 +5,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.Properties;
 
 
@@ -21,9 +24,6 @@ public class LaunchUtil {
 
     private static final String CONFIG_PROPERTIES = "launch.properties";
     private static volatile Properties PROPERTIES;
-
-    public static Class LAUNCH_CLASS;
-
 
     public static String getProperty(String key) {
         String value = System.getProperty(key);
@@ -88,10 +88,29 @@ public class LaunchUtil {
 
         // fall back to use method getResourceAsStream
         try {
-            if (LAUNCH_CLASS != null)
-                properties.load(LAUNCH_CLASS.getResourceAsStream(LAUNCH_CLASS.getSimpleName() + ".properties"));
-            else
+            try {
+                StringWriter sw = new StringWriter();
+                PrintWriter pw = new PrintWriter(sw);
+
+                new Throwable().printStackTrace(pw);
+                StringBuffer stack = sw.getBuffer();
+                int start = stack.lastIndexOf("at ") + 3;
+                int end = stack.lastIndexOf(".main(");
+                stack.delete(end, stack.length()).delete(0, start);
+
+                int index = stack.lastIndexOf(".") + 1;
+                char letter = stack.charAt(index);
+                if (letter < 97) {
+                    stack.setCharAt(index, (char) (letter + 32));
+                }
+                while ((index = stack.indexOf(".")) > -1) {
+                    stack.setCharAt(index, '/');
+                }
+
+                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(stack + ".properties"));
+            } catch (IOException e) {
                 properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName));
+            }
         } catch (Throwable e) {
             logger.warn("Failed to load " + fileName + " file from " + fileName + "(ingore this file): " + e.getMessage(), e);
         }
