@@ -94,8 +94,9 @@ public class LaunchUtil {
 
                 new Throwable().printStackTrace(pw);
                 StringBuffer stack = sw.getBuffer();
-                int start = stack.lastIndexOf("at ") + 3;
-                int end = stack.lastIndexOf(".main(");
+
+                int start = stack.indexOf("at ", stack.indexOf("Main.main")) + 3;
+                int end = stack.indexOf(".main(", start);
                 stack.delete(end, stack.length()).delete(0, start);
 
                 int index = stack.lastIndexOf(".") + 1;
