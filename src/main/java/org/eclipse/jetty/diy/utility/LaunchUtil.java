@@ -108,7 +108,9 @@ public class LaunchUtil {
                     stack.setCharAt(index, '/');
                 }
 
-                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(stack + ".properties"));
+                String path = stack + ".properties";
+                logger.info("load launch properties from: ", path);
+                properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(path));
             } catch (IOException e) {
                 properties.load(Thread.currentThread().getContextClassLoader().getResourceAsStream(fileName));
             }
