@@ -43,7 +43,7 @@ public class JettyWebContainer implements Container {
         context.setDescriptor(resourceBase + "/WEB-INF/web.xml");
         context.setConfigurations(new Configuration[]{
                 new AnnotationConfiguration(), new WebXmlConfiguration(),
-                new WebInfConfiguration(), new TagLibConfiguration(),
+                new WebInfConfiguration(),/* new TagLibConfiguration(),*/
                 new PlusConfiguration(), new MetaInfConfiguration(),
                 new FragmentConfiguration(), new EnvConfiguration()});
 

@@ -3,7 +3,7 @@ package org.eclipse.jetty.diy.launch;
 import org.eclipse.jetty.diy.utility.LaunchUtil;
 import org.eclipse.jetty.server.Connector;
 import org.eclipse.jetty.server.Server;
-import org.eclipse.jetty.server.nio.SelectChannelConnector;
+import org.eclipse.jetty.server.ServerConnector;
 import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import org.slf4j.Logger;
@@ -28,7 +28,7 @@ public class JettyContainer implements Container {
     public static final String SPRING_SERVLET = "spring.servlet";
     public static final String DEFAULT_SPRING_SERVLET = "classpath*:spring-servlet.xml";
 
-    SelectChannelConnector connector;
+    ServerConnector connector;
 
     public void start() {
         String springConfig = LaunchUtil.getProperty(SpringContainer.SPRING_CONFIG);
@@ -47,13 +47,14 @@ public class JettyContainer implements Container {
             port = Integer.parseInt(serverPort);
         }
 
-        connector = new SelectChannelConnector();
+        Server server = new Server();
+
+        connector = new ServerConnector(server);
         // connector.setMaxIdleTime(1000);
         // connector.setAcceptors(10);
         connector.setPort(port);
         // connector.setConfidentialPort(8443);
 
-        Server server = new Server();
         server.setConnectors(new Connector[]{connector});
 
         ServletContextHandler handler = new ServletContextHandler(server, "/");
